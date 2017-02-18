@@ -6,6 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Making Status Bar Translucent -->
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <!-- Base application theme. -->
