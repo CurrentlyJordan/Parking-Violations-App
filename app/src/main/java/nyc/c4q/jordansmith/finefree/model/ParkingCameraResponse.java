@@ -14,7 +14,7 @@ public class ParkingCameraResponse {
     private String issueImage;
 
     @SerializedName("issue_date")
-    private String issuDate;
+    private String issueDate;
 
     @SerializedName("payment_amount")
     private String paymentAmount;
@@ -29,8 +29,8 @@ public class ParkingCameraResponse {
         return issueImage;
     }
 
-    public String getIssuDate() {
-        return issuDate;
+    public String getIssueDate() {
+        return issueDate;
     }
 
     public String getPaymentAmount() {
