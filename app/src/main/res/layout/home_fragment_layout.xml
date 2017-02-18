@@ -7,7 +7,14 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="home"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/violations_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
