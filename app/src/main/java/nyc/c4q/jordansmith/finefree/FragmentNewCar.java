@@ -1,5 +1,6 @@
 package nyc.c4q.jordansmith.finefree;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by jordansmith on 2/18/17.
@@ -33,13 +35,23 @@ public class FragmentNewCar extends Fragment {
             public void onClick(View v) {
                 String savedPlate = newCarLicenseEditText.getText().toString();
                 String savedCarName = newCarNameEditText.getText().toString();
-
-
+                newCarNameEditText.setText("");
+                newCarLicenseEditText.setText("");
+                Car car = new Car(savedCarName, savedPlate);
+                Car.getCarlist().add(car);
+                Toast.makeText(v.getContext(),"New Car Added",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(),ActivityMain.class);
+                getContext().startActivity(intent);
             }
         });
 
+
         return rootView;
     }
+
+
+
+
 
 
 

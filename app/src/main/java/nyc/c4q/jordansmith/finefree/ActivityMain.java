@@ -10,7 +10,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -18,6 +20,8 @@ public class ActivityMain extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navDrawerView;
     private ActionBarDrawerToggle drawerToggle;
+    SubMenu submenu;
+
 
 
     @Override
@@ -28,12 +32,19 @@ public class ActivityMain extends AppCompatActivity {
         setupDrawerContent(navDrawerView);
         drawerToggle = setupDrawerToggle();
 
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_holder, new FragmentHome())
                 .commit();
 
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        addCarstoNav();
     }
 
     private void setupToolbar(){
@@ -117,6 +128,23 @@ public class ActivityMain extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }
+
+    public void addCarstoNav(){
+        final Menu menu = navDrawerView.getMenu();
+        if(submenu == null) {
+            submenu = menu.addSubMenu("Your Cars");
+            for (Car car : Car.getCarlist()) {
+                submenu.add(car.getName());
+            }
+        }
+        else{
+            for (Car car: Car.getCarlist()) {
+                submenu.add(car.getName());
+        }
+
+        }
+    }
+
 
 
 
