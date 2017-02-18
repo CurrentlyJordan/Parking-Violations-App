@@ -11,5 +11,9 @@
             android:id="@+id/settings_fragment"
             android:icon="@drawable/ic_settings_grey600_36dp"
             android:title="Settings" />
+        <item
+            android:id="@+id/add_car_fragment"
+            android:icon="@drawable/ic_car_grey600_36dp"
+            android:title="Add new Car" />
     </group>
 </menu>

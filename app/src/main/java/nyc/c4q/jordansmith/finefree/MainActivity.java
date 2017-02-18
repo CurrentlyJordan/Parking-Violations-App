@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.settings_fragment:
                 fragmentClass = SettingsFragment.class;
                 break;
+            case R.id.add_car_fragment:
+                fragmentClass = newCarFragment.class;
+                break;
             default:
                 fragmentClass = HomeFragment.class;
         }
