@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_holder, new HomeFragment())
+                .replace(R.id.fragment_holder, new FragmentHome())
                 .commit();
 
     }
@@ -74,16 +74,16 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.home_fragment:
-                fragmentClass = HomeFragment.class;
+                fragmentClass = FragmentHome.class;
                 break;
             case R.id.settings_fragment:
-                fragmentClass = SettingsFragment.class;
+                fragmentClass = FragmentSettings.class;
                 break;
             case R.id.add_car_fragment:
-                fragmentClass = newCarFragment.class;
+                fragmentClass = FragmentNewCar.class;
                 break;
             default:
-                fragmentClass = HomeFragment.class;
+                fragmentClass = FragmentHome.class;
         }
 
         try {

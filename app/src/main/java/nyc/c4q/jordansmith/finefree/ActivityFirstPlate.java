@@ -54,7 +54,7 @@ public class ActivityFirstPlate extends AppCompatActivity {
 
         prefs.edit().putString("firstplate", plateNumber).commit();
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ActivityMain.class);
         startActivity(intent);
     }
 }

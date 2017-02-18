@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * Created by jordansmith on 2/18/17.
  */
 
-public class newCarFragment extends Fragment {
+public class FragmentNewCar extends Fragment {
     View rootView;
 
 

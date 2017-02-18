@@ -29,7 +29,7 @@ public class ActivitySplash extends AppCompatActivity {
                 String firstPlate = prefs.getString("firstplate", null);
                 if (firstPlate != null) {
                     System.out.println("SECOND TIME");
-                    Intent intent = new Intent(ActivitySplash.this, MainActivity.class);
+                    Intent intent = new Intent(ActivitySplash.this, ActivityMain.class);
                     startActivity(intent);
                 } else {
                     System.out.println("FIRST TIME");
