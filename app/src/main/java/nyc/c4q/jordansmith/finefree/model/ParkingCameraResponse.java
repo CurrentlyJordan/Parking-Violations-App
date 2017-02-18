@@ -43,7 +43,7 @@ public class ParkingCameraResponse {
 
 
     /*"amount_due": "0",
-	"county": "BX",
+    "county": "BX",
 	"fine_amount": "45",
 	"interest_amount": "8.33",
 	"issue_date": "06/09/2015",

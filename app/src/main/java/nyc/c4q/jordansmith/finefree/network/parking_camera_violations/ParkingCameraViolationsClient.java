@@ -22,7 +22,7 @@ public class ParkingCameraViolationsClient {
         apiService = (new NetworkServices()).getJSONService(BASE_URL, ParkingCameraViolationsService.class);
     }
 
-    public static ParkingCameraViolationsClient getInstance(){
+    public static ParkingCameraViolationsClient getInstance() {
         if (instance == null) {
             synchronized (ParkingCameraViolationsClient.class) {
                 if (instance == null) {
@@ -33,11 +33,11 @@ public class ParkingCameraViolationsClient {
         return instance;
     }
 
-    public Call<List<ParkingCameraResponse>> getResponse(){
+    public Call<List<ParkingCameraResponse>> getResponse() {
         return apiService.getAllViolations();
     }
 
-    public Call<List<ParkingCameraResponse>> getResponseByPlate(String plate){
+    public Call<List<ParkingCameraResponse>> getResponseByPlate(String plate) {
         return apiService.getViolationsByPlate(plate);
     }
 
