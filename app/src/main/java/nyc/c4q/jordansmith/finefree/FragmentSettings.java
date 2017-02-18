@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * Created by jordansmith on 2/18/17.
  */
 
-public class SettingsFragment extends Fragment {
+public class FragmentSettings extends Fragment {
 
     View rootView;
 

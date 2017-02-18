@@ -24,7 +24,7 @@ import retrofit2.Response;
  * Created by jordansmith on 2/18/17.
  */
 
-public class HomeFragment extends Fragment {
+public class FragmentHome extends Fragment {
     private RecyclerView violationRV;
     private SharedPreferences preferences;
     List<ParkingCameraResponse> violationsList = new ArrayList<>();
