@@ -11,14 +11,14 @@ import android.view.ViewGroup;
  * Created by jordansmith on 2/18/17.
  */
 
-public class SettingsFragment extends Fragment {
+public class FragmentHome extends Fragment {
 
     View rootView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.settings_fragment_layout, container, false);
+        rootView = inflater.inflate(R.layout.home_fragment_layout, container, false);
 
         return rootView;
     }
