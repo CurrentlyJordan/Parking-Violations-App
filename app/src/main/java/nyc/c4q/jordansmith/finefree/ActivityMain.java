@@ -134,13 +134,17 @@ public class ActivityMain extends AppCompatActivity {
         if(submenu == null) {
             submenu = menu.addSubMenu("Your Cars");
             for (Car car : Car.getCarlist()) {
-                submenu.add(car.getName());
+                submenu.add(car.getName()).setIcon(R.drawable.ic_car_black_36dp);
             }
         }
         else{
             for (Car car: Car.getCarlist()) {
-                submenu.add(car.getName());
+                submenu.add(car.getName())
+                        .setIcon(R.drawable.ic_car_black_36dp)
+                        .setShowAsAction(MenuItem.);
+
         }
+
 
         }
     }
