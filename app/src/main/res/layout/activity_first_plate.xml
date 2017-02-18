@@ -4,19 +4,31 @@
     android:id="@+id/activity_first_plate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nyc.c4q.jordansmith.finefree.ActivityFirstPlate">
+    tools:context="nyc.c4q.jordansmith.finefree.ActivityFirstPlate"
+    android:background="@drawable/bg_first_plate">
 
     <EditText
         android:id="@+id/etv_enter_plate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter your plate number"/>
+        android:hint="Enter your plate number"
+        android:layout_centerInParent="true"/>
 
     <Button
         android:layout_below="@id/etv_enter_plate"
         android:id="@+id/btn_enter_plate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:text="Go"/>
+
+    <ImageView
+        android:id="@+id/iv_text_logo"
+        android:layout_above="@id/etv_enter_plate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo_text_white"/>
 
 </RelativeLayout>
