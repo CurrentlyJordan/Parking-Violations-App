@@ -17,7 +17,7 @@ public class ParkingCameraResponse {
     private String issueDate;
 
     @SerializedName("payment_amount")
-    private String paymentAmount;
+    private Integer paymentAmount;
 
     private String violation;
 
@@ -33,7 +33,7 @@ public class ParkingCameraResponse {
         return issueDate;
     }
 
-    public String getPaymentAmount() {
+    public Integer getPaymentAmount() {
         return paymentAmount;
     }
 

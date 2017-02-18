@@ -1,9 +1,10 @@
-package nyc.c4q.jordansmith.finefree;
+package nyc.c4q.jordansmith.finefree.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import nyc.c4q.jordansmith.finefree.R;
 import nyc.c4q.jordansmith.finefree.model.ParkingCameraResponse;
 
 /**
@@ -21,6 +22,6 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(ParkingCameraResponse violations) {
         summons_tv.setText(violations.getSummonsNumber());
-        fineAmount.setText(violations.getPaymentAmount());
+        fineAmount.setText(Integer.toString(violations.getPaymentAmount()));
     }
 }
