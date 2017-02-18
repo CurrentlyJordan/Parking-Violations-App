@@ -36,6 +36,12 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.home_fragment_layout, container, false);
         violationRV = (RecyclerView) rootView.findViewById(R.id.violations_recyclerview);
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            licensePlate = bundle.getString("Car License");
+        }
+
         return rootView;
     }
 

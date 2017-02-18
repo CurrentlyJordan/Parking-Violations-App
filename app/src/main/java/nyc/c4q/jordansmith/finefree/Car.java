@@ -1,7 +1,7 @@
 package nyc.c4q.jordansmith.finefree;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by jordansmith on 2/18/17.
@@ -11,18 +11,18 @@ public class Car {
 
      private String name;
     private String licensePlate;
-    private static List<Car> Carlist = new ArrayList<>();
+    private static Set<Car> Carlist = new HashSet<>();
 
     Car(String name, String licensePlate){
         this.licensePlate = licensePlate;
         this.name = name;
     }
 
-    public static List<Car> getCarlist() {
+    public static Set<Car> getCarlist() {
         return Carlist;
     }
 
-    public static void setCarlist(List<Car> carlist) {
+    public static void setCarlist(Set<Car> carlist) {
         Carlist = carlist;
     }
 
@@ -42,5 +42,8 @@ public class Car {
         this.name = name;
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

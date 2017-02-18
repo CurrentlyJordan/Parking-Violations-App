@@ -38,12 +38,15 @@ public class FragmentNewCar extends Fragment {
                 newCarNameEditText.setText("");
                 newCarLicenseEditText.setText("");
                 Car car = new Car(savedCarName, savedPlate);
+
                 Car.getCarlist().add(car);
                 Toast.makeText(v.getContext(),"New Car Added",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(),ActivityMain.class);
                 getContext().startActivity(intent);
             }
         });
+
+
 
 
         return rootView;
