@@ -24,6 +24,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     private TextView summons_tv;
     private TextView fineAmount;
     private TextView issueDate_tv;
+    private TextView violation_tv;
     private Button payButton;
     private boolean isAlreadyClicked;
     private ImageView ticketImageView;
@@ -34,6 +35,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         summons_tv = (TextView) itemView.findViewById(R.id.summons_textview);
         issueDate_tv = (TextView) itemView.findViewById(R.id.issue_date_textview);
         fineAmount = (TextView) itemView.findViewById(R.id.fine_textview);
+        violation_tv = (TextView)itemView.findViewById(R.id.violation_textview);
         payButton = (Button) itemView.findViewById(R.id.pay_button);
         setImageView();
 
@@ -72,6 +74,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ParkingCameraResponse violations) {
+        violation_tv.setText(violations.getViolation());
         fineAmount.setText("Fine Amount: $" + Integer.toString(violations.getAmountDue()));
         summons_tv.setText("Summons#: " + violations.getSummonsNumber());
         issueDate_tv.setText("Issue Date: " + violations.getIssueDate());
