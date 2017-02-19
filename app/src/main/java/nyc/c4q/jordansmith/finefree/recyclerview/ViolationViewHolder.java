@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.View;
@@ -40,7 +41,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         violation_tv = (TextView) itemView.findViewById(R.id.violation_textview);
         payButton = (Button) itemView.findViewById(R.id.pay_button);
         calendarButton = (Button) itemView.findViewById(R.id.calendar_button);
-        viewTicket =(Button) itemView.findViewById(R.id.violation_view_button);
+        viewTicket = (Button) itemView.findViewById(R.id.violation_view_button);
         setImageView();
 
     }
@@ -53,15 +54,14 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         ));
     }
 
-    private void cardClick(final String issueImageURL) {
-        itemView.setOnClickListener(new View.OnClickListener() {
+    private View.OnClickListener viewTicketClick(final String issueImageURL) {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(issueImageURL));
                 itemView.getContext().startActivity(browserIntent);
-
             }
-        });
+        };
     }
 
     private View.OnClickListener payButtonClick(final String string) {
@@ -88,7 +88,21 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         summons_tv.setText(Html.fromHtml(summons));
         fineAmount.setText(Html.fromHtml(fine_amount));
         payButton.setOnClickListener(payButtonClick(violations.getSummonsNumber()));
-        cardClick(violations.getIssueImageURL());
+        viewTicket.setOnClickListener(viewTicketClick(violations.getIssueImageURL()));
+        calendarButton.setOnClickListener(calendarButtonClick(violations.getViolation()));
+    }
+
+    private View.OnClickListener calendarButtonClick(final String violation) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent calIntent = new Intent(Intent.ACTION_INSERT);
+                calIntent.putExtra(CalendarContract.Events.TITLE, "PAY TICKET");
+                calIntent.putExtra(CalendarContract.Events.DESCRIPTION, violation);
+                calIntent.setData(CalendarContract.Events.CONTENT_URI);
+                itemView.getContext().startActivity(calIntent);
+            }
+        };
     }
 }
 

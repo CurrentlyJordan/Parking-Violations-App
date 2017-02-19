@@ -129,7 +129,7 @@ public class ActivityMain extends AppCompatActivity {
                         .replace(R.id.fragment_holder, new FragmentSettings())
                         .commit();
                 break;
-            case "Add new Car":
+            case "Add New Car":
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_holder, new FragmentNewCar())
                         .commit();

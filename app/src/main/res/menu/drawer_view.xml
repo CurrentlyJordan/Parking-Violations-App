@@ -14,6 +14,6 @@
         <item
             android:id="@+id/add_car_fragment"
             android:icon="@drawable/ic_car_grey600_36dp"
-            android:title="Add new Car" />
+            android:title="Add New Car" />
     </group>
 </menu>
