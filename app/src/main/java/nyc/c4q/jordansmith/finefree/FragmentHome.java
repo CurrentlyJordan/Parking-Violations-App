@@ -1,6 +1,5 @@
 package nyc.c4q.jordansmith.finefree;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,9 +26,8 @@ import retrofit2.Response;
 
 public class FragmentHome extends Fragment {
     private RecyclerView violationRV;
-    private SharedPreferences preferences;
     private ViolationsAdapter mViolationsAdapter = new ViolationsAdapter();
-    String licensePlate = "GXE1257";
+    private String licensePlate;
 
     @Nullable
     @Override
@@ -40,7 +38,7 @@ public class FragmentHome extends Fragment {
 
         Bundle bundle = getArguments();
         if(bundle != null){
-            licensePlate = bundle.getString("Car License");
+            licensePlate = bundle.getString(ActivityMain.PLATE_KEY);
         }
 
         violationRV.setLayoutManager(new LinearLayoutManager(getContext()));
