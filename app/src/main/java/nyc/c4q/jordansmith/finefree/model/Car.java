@@ -13,6 +13,9 @@ public class Car {
     private String licensePlate;
     private static Set<Car> Carlist = new HashSet<>();
 
+    public Car() {
+    }
+
     public Car(String name, String licensePlate){
         this.licensePlate = licensePlate;
         this.name = name;

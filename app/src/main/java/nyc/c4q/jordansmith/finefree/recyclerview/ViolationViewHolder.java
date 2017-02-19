@@ -7,13 +7,9 @@ import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewManager;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import nyc.c4q.jordansmith.finefree.R;
 import nyc.c4q.jordansmith.finefree.model.ParkingCameraResponse;
@@ -51,22 +47,13 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         ));
     }
 
-    private void cardClick(final String issueImage) {
+    private void cardClick(final String issueImageURL) {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(issueImageURL));
+                itemView.getContext().startActivity(browserIntent);
 
-                if (isAlreadyClicked) {
-                    ((ViewGroup) ticketImageView.getParent()).removeView(ticketImageView);
-                    isAlreadyClicked = false;
-                } else {
-                    Glide.with(itemView.getContext())
-                            .load(issueImage)
-                            .into(ticketImageView);
-                    ((ViewGroup) itemView).addView(ticketImageView);
-                    isAlreadyClicked = true;
-
-                }
             }
         });
     }
@@ -89,7 +76,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         summons_tv.setText("Summons#: " + violations.getSummonsNumber());
         issueDate_tv.setText("Issue Date: " + violations.getIssueDate());
         payButton.setOnClickListener(payButtonClick(violations.getSummonsNumber()));
-        cardClick(violations.getIssueImage());
+        cardClick(violations.getIssueImageURL());
     }
 }
 
