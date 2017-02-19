@@ -31,10 +31,12 @@ public class ActivitySplash extends AppCompatActivity {
                     System.out.println("SECOND TIME");
                     Intent intent = new Intent(ActivitySplash.this, ActivityMain.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     System.out.println("FIRST TIME");
                     Intent intent = new Intent(ActivitySplash.this, ActivityFirstPlate.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         }, 5000);
