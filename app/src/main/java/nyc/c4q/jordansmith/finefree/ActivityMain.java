@@ -55,15 +55,27 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void startDefaultHomeFragment() {
-        FragmentHome fragmentHome = new FragmentHome();
-        Bundle bundle = new Bundle();
-        bundle.putString(PLATE_KEY, cars.get(0).getLicensePlate());
-        fragmentHome.setArguments(bundle);
+        if (!cars.isEmpty()) {
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_holder, fragmentHome)
-                .commit();
+            FragmentHome fragmentHome = new FragmentHome();
+            Bundle bundle = new Bundle();
+            bundle.putString(PLATE_KEY, cars.get(0).getLicensePlate());
+            fragmentHome.setArguments(bundle);
+
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_holder, fragmentHome)
+                    .commit();
+        } else {
+
+            //inflate fragment that has no cars
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_holder, new FragmentNoCar())
+                    .commit();
+        }
+
     }
 
     @Override
