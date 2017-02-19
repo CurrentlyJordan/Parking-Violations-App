@@ -75,7 +75,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(ParkingCameraResponse violations) {
         String violation = "<b>" + violations.getViolation().toLowerCase() + "</b>";
-        String fine_amount = Integer.toString(violations.getAmountDue());
+        String fine_amount = "<b>" + Integer.toString(violations.getAmountDue()) +"</b>";
         String summons = "<b>Summons#: </b>" + violations.getSummonsNumber();
         String issueDate = "<b>Issue Date: </b>" + violations.getIssueDate();
 
