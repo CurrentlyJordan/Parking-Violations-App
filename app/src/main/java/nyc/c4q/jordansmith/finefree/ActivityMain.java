@@ -1,5 +1,7 @@
 package nyc.c4q.jordansmith.finefree;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -191,11 +193,23 @@ public class ActivityMain extends AppCompatActivity {
                 item.getActionView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        new AlertDialog.Builder(ActivityMain.this)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle("Delete Car")
+                                .setMessage("Are you sure you want to remove car?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        System.out.println("CLICKED " + item.getTitle());
+                                        cupboard().withDatabase(db).delete(Car.class, "name = ?", (String) item.getTitle());
 
-                        System.out.println("CLICKED " + item.getTitle());
-                        cupboard().withDatabase(db).delete(Car.class, "name = ?", (String) item.getTitle());
+                                        updateSubmenu();
+                                    }
+                                })
+                                .setNegativeButton("Cancel", null)
+                                .show();
 
-                        updateSubmenu();
+
                     }
                 });
             }

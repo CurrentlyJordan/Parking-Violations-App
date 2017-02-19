@@ -32,7 +32,7 @@ public class FragmentHome extends Fragment {
     private String licensePlate;
     private TextView nameOfCar;
     private TextView plateOfCar;
-    private TextView ifRVIsEmpty;
+    private TextView onlyShownIfNoDataTV;
 
 
     @Nullable
@@ -42,7 +42,7 @@ public class FragmentHome extends Fragment {
         violationRV = (RecyclerView) rootView.findViewById(R.id.violations_recyclerview);
         nameOfCar = (TextView) rootView.findViewById(R.id.name_textview);
         plateOfCar = (TextView) rootView.findViewById(R.id.license_textview);
-        ifRVIsEmpty = (TextView) rootView.findViewById(R.id.replace_rv_when_empty);
+        onlyShownIfNoDataTV = (TextView) rootView.findViewById(R.id.replace_rv_when_empty);
 
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -73,7 +73,7 @@ public class FragmentHome extends Fragment {
                         List<ParkingCameraResponse> violationsList = parseResponseForOutstandingViolations(response.body());
                         if(violationsList.isEmpty()){
                             violationRV.setVisibility(View.GONE);
-                            ifRVIsEmpty.setVisibility(View.VISIBLE);
+                            onlyShownIfNoDataTV.setVisibility(View.VISIBLE);
                         }
                         mViolationsAdapter.setViolationsList(violationsList);
                     }
