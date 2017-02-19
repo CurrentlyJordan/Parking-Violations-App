@@ -11,7 +11,7 @@ public class ParkingCameraResponse {
     private String summonsNumber;
 
     @SerializedName("summons_image")
-    private String issueImage;
+    private String issueImageURL;
 
     @SerializedName("issue_date")
     private String issueDate;
@@ -25,8 +25,8 @@ public class ParkingCameraResponse {
         return summonsNumber;
     }
 
-    public String getIssueImage() {
-        return issueImage;
+    public String getIssueImageURL() {
+        return issueImageURL;
     }
 
     public String getIssueDate() {
