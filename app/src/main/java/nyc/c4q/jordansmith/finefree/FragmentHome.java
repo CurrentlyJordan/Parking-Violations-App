@@ -8,11 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import nyc.c4q.jordansmith.finefree.model.Car;
 import nyc.c4q.jordansmith.finefree.model.ParkingCameraResponse;
 import nyc.c4q.jordansmith.finefree.network.parking_camera_violations.ParkingCameraViolationsClient;
 import nyc.c4q.jordansmith.finefree.recyclerview.ViolationsAdapter;
@@ -28,17 +30,24 @@ public class FragmentHome extends Fragment {
     private RecyclerView violationRV;
     private ViolationsAdapter mViolationsAdapter = new ViolationsAdapter();
     private String licensePlate;
+    private TextView nameOfCar;
+    private TextView plateOfCar;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment_layout, container, false);
         violationRV = (RecyclerView) rootView.findViewById(R.id.violations_recyclerview);
+        nameOfCar = (TextView) rootView.findViewById(R.id.name_textview);
+        plateOfCar = (TextView) rootView.findViewById(R.id.license_textview);
 
 
         Bundle bundle = getArguments();
         if(bundle != null){
-            licensePlate = bundle.getString(ActivityMain.PLATE_KEY);
+            Car car = (Car) bundle.getSerializable(ActivityMain.PLATE_KEY);
+            licensePlate = car.getLicensePlate();
+            plateOfCar.setText(licensePlate);
+            nameOfCar.setText(car.getName());
         }
 
         violationRV.setLayoutManager(new LinearLayoutManager(getContext()));
