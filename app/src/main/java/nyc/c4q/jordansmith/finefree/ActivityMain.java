@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -53,6 +54,7 @@ public class ActivityMain extends AppCompatActivity {
 
         startDefaultHomeFragment();
 
+        addCarstoNav();
 
     }
 
@@ -84,7 +86,6 @@ public class ActivityMain extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        addCarstoNav();
     }
 
     private void setupToolbar() {
@@ -189,7 +190,10 @@ public class ActivityMain extends AppCompatActivity {
                 final MenuItem item = submenu.getItem(i);
                 Button button = new Button(this);
                 button.setText("Remove");
+                button.setHeight(10);
+                button.setTextColor(ContextCompat.getColor(this, R.color.white));
                 item.setActionView(button);
+                item.getActionView().setBackground(getDrawable(R.drawable.button_shape));
                 item.getActionView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -214,27 +218,28 @@ public class ActivityMain extends AppCompatActivity {
                 });
             }
         } else {
-            for (int i = 0; i < cars.size(); i++) {
-                submenu.clear();
-                submenu.add(cars.get(i).getName()).setTitle(cars.get(i).getName().toString())
-                        .setIcon(R.drawable.ic_car_black_36dp);
-
-                final MenuItem item = submenu.getItem(i);
-                Button button = new Button(this);
-                button.setText("Remove");
-                item.setActionView(button);
-                item.getActionView().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        System.out.println("CLICKED " + item.getTitle());
-                        cupboard().withDatabase(db).delete(Car.class, "name = ?", (String) item.getTitle());
-
-                        updateSubmenu();
-                    }
-                });
-
-            }
+//            for (int i = 0; i < cars.size(); i++) {
+//                submenu.clear();
+//                submenu.add(cars.get(i).getName()).setTitle(cars.get(i).getName().toString())
+//                        .setIcon(R.drawable.ic_car_black_36dp);
+//
+//                final MenuItem item = submenu.getItem(i);
+//                Button button = new Button(this);
+//                button.setText("Remove");
+//                item.setActionView(button);
+//                item.getActionView().setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//
+//                        System.out.println("CLICKED " + item.getTitle());
+//                        cupboard().withDatabase(db).delete(Car.class, "name = ?", (String) item.getTitle());
+//
+//                        updateSubmenu();
+//                    }
+//                });
+//
+//            }
+            setupCarMenu();
 
 
 
@@ -247,26 +252,68 @@ public class ActivityMain extends AppCompatActivity {
 
         submenu.clear();
 
+//        for (int i = 0; i < cars.size(); i++) {
+//            submenu.add(cars.get(i).getName()).setTitle(cars.get(i).getName().toString())
+//                    .setIcon(R.drawable.ic_car_black_36dp);
+//
+//            final MenuItem item = submenu.getItem(i);
+//            Button button = new Button(this);
+//            button.setText("Remove");
+//            button.setTextColor(getResources().getColor(R.color.white));
+//            item.setActionView(button);
+//            item.getActionView().setBackground(getDrawable(R.drawable.button_shape));
+//            item.getActionView().setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                    System.out.println("CLICKED " + item.getTitle());
+//                    cupboard().withDatabase(db).delete(Car.class, "name = ?", (String) item.getTitle());
+//
+//                    updateSubmenu();
+//                }
+//            });
+//        }
+        setupCarMenu();
+
+    }
+
+    private void setupCarMenu(){
         for (int i = 0; i < cars.size(); i++) {
+            submenu.clear();
             submenu.add(cars.get(i).getName()).setTitle(cars.get(i).getName().toString())
                     .setIcon(R.drawable.ic_car_black_36dp);
 
             final MenuItem item = submenu.getItem(i);
             Button button = new Button(this);
             button.setText("Remove");
+            button.setTextColor(ContextCompat.getColor(this, R.color.white));
             item.setActionView(button);
+            item.getActionView().setBackground(getDrawable(R.drawable.button_shape));
+
             item.getActionView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    new AlertDialog.Builder(ActivityMain.this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Delete Car")
+                            .setMessage("Are you sure you want to remove car?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    System.out.println("CLICKED " + item.getTitle());
+                                    cupboard().withDatabase(db).delete(Car.class, "name = ?", (String) item.getTitle());
 
-                    System.out.println("CLICKED " + item.getTitle());
-                    cupboard().withDatabase(db).delete(Car.class, "name = ?", (String) item.getTitle());
+                                    updateSubmenu();
+                                }
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
 
-                    updateSubmenu();
+
                 }
             });
-        }
 
+        }
     }
 
     @Override
