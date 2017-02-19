@@ -48,8 +48,8 @@ public class FragmentHome extends Fragment {
         if(bundle != null){
             Car car = (Car) bundle.getSerializable(ActivityMain.PLATE_KEY);
             licensePlate = car.getLicensePlate();
-            plateOfCar.setText(licensePlate);
-            nameOfCar.setText(car.getName());
+            plateOfCar.setText("Plate #: " + licensePlate);
+            nameOfCar.setText("Outstanding violations for " + car.getName());
         }
 
         violationRV.setLayoutManager(new LinearLayoutManager(getContext()));

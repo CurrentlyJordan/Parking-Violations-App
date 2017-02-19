@@ -20,7 +20,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
             android:background="@drawable/round_button"
             android:text="@string/pay"
             android:textColor="@color/white" />
@@ -32,10 +31,23 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/due_date_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginBottom="4dp"
+                android:text="Due Date:"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+
+            <TextView
                 android:id="@+id/violation_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/rv_text_size" />
+                android:layout_marginBottom="4dp"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/issue_date_textview"
@@ -54,13 +66,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
                 android:textSize="@dimen/rv_text_size" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:layout_gravity="center_horizontal">
 
                 <Button
@@ -68,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:background="@drawable/viewholder_buttons"
+                    android:background="@drawable/blue_rectangular_buttons"
                     android:padding="5dp"
                     android:layout_marginRight="10dp"
                     android:drawableLeft="@drawable/ic_mcalendar"
@@ -80,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_weight="1"
-                    android:background="@drawable/viewholder_buttons"
+                    android:background="@drawable/blue_rectangular_buttons"
                     android:padding="5dp"
                     android:drawableLeft="@drawable/ic_view_image"
                     android:text="View Ticket"
