@@ -11,9 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:layout_margin="10dp"
-        >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/pay_button"
@@ -24,7 +23,6 @@
             android:background="@drawable/round_button"
             android:text="@string/pay"
             android:textColor="@color/white" />
-
 
         <LinearLayout
             android:layout_width="match_parent"

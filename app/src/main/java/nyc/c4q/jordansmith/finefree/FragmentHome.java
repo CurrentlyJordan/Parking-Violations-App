@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import retrofit2.Response;
 
 public class FragmentHome extends Fragment {
     private RecyclerView violationRV;
+    private TextView ifRVIsEmpty;
     private ViolationsAdapter mViolationsAdapter = new ViolationsAdapter();
     private String licensePlate;
 
@@ -34,7 +36,7 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment_layout, container, false);
         violationRV = (RecyclerView) rootView.findViewById(R.id.violations_recyclerview);
-
+        ifRVIsEmpty = (TextView) rootView.findViewById(R.id.replace_rv_when_empty);
 
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -60,6 +62,10 @@ public class FragmentHome extends Fragment {
                     @Override
                     public void onResponse(Call<List<ParkingCameraResponse>> call, Response<List<ParkingCameraResponse>> response) {
                         List<ParkingCameraResponse> violationsList = parseResponseForOutstandingViolations(response.body());
+                        if(violationsList.isEmpty()){
+                            violationRV.setVisibility(View.GONE);
+                            ifRVIsEmpty.setVisibility(View.VISIBLE);
+                        }
                         mViolationsAdapter.setViolationsList(violationsList);
                     }
 
