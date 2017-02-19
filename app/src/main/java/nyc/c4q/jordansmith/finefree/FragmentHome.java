@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import nyc.c4q.jordansmith.finefree.model.Car;
 import nyc.c4q.jordansmith.finefree.model.ParkingCameraResponse;
 import nyc.c4q.jordansmith.finefree.network.parking_camera_violations.ParkingCameraViolationsClient;
 import nyc.c4q.jordansmith.finefree.recyclerview.ViolationsAdapter;
@@ -43,7 +44,10 @@ public class FragmentHome extends Fragment {
 
         Bundle bundle = getArguments();
         if(bundle != null){
-            licensePlate = bundle.getString(ActivityMain.PLATE_KEY);
+            Car car = (Car) bundle.getSerializable(ActivityMain.PLATE_KEY);
+            licensePlate = car.getLicensePlate();
+            plateOfCar.setText(licensePlate);
+            nameOfCar.setText(car.getName());
         }
 
         violationRV.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -1,10 +1,12 @@
 package nyc.c4q.jordansmith.finefree.model;
 
+import java.io.Serializable;
+
 /**
  * Created by jordansmith on 2/18/17.
  */
 
-public class Car {
+public class Car implements Serializable{
     Long _id;
     private String name;
     private String licensePlate;

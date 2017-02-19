@@ -59,7 +59,8 @@ public class ActivityMain extends AppCompatActivity {
 
             FragmentHome fragmentHome = new FragmentHome();
             Bundle bundle = new Bundle();
-            bundle.putString(PLATE_KEY, cars.get(0).getLicensePlate());
+            bundle.putSerializable(PLATE_KEY, cars.get(0));
+//            bundle.putString(PLATE_KEY, cars.get(0).getLicensePlate());
             fragmentHome.setArguments(bundle);
 
 
@@ -138,7 +139,7 @@ public class ActivityMain extends AppCompatActivity {
             if (cars.get(i).getName().equals(menuItem.getTitle())) {
                 plate = cars.get(i).getLicensePlate();
                 Bundle bundle = new Bundle();
-                bundle.putString(PLATE_KEY, plate);
+                bundle.putSerializable(PLATE_KEY, cars.get(i));
                 FragmentHome fragmentHome = new FragmentHome();
                 fragmentHome.setArguments(bundle);
 
