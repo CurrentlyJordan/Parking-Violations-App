@@ -1,12 +1,11 @@
-package nyc.c4q.jordansmith.finefree;
+package nyc.c4q.jordansmith.finefree.recyclerview;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import nyc.c4q.jordansmith.finefree.R;
 import nyc.c4q.jordansmith.finefree.model.ParkingCameraResponse;
 
 /**
@@ -34,9 +33,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse(violationURL);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                itemView.getContext().startActivity(intent);
+
             }
         });
     }
@@ -51,9 +48,9 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ParkingCameraResponse violations) {
+        fineAmount.setText(fineAmount.getText() + Integer.toString(violations.getAmountDue()));
         summons_tv.setText(summons_tv.getText() + violations.getSummonsNumber());
         issueDate_tv.setText(issueDate_tv.getText() + violations.getIssueDate());
-        fineAmount.setText(fineAmount.getText() + violations.getPaymentAmount());
         violationURL = violations.getIssueImage();
     }
 }
