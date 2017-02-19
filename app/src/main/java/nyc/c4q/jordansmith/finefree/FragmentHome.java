@@ -30,7 +30,6 @@ import static android.content.Context.MODE_PRIVATE;
 public class FragmentHome extends Fragment {
     private RecyclerView violationRV;
     private SharedPreferences preferences;
-    List<ParkingCameraResponse> violationsList = new ArrayList<>();
     private ViolationsAdapter mViolationsAdapter = new ViolationsAdapter();
     //String licensePlate = "GXE1257";
     private String licensePlate;
