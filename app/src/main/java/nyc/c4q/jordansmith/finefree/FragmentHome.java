@@ -60,9 +60,6 @@ public class FragmentHome extends Fragment {
                     @Override
                     public void onResponse(Call<List<ParkingCameraResponse>> call, Response<List<ParkingCameraResponse>> response) {
                         List<ParkingCameraResponse> violationsList = parseResponseForOutstandingViolations(response.body());
-                        if(response.body() == null){
-
-                        }
                         mViolationsAdapter.setViolationsList(violationsList);
                     }
 
