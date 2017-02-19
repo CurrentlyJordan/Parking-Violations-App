@@ -8,7 +8,15 @@
     android:background="@drawable/bg_first_plate">
 
     <EditText
+        android:id="@+id/etv_enter_car_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter your car name"
+        android:layout_centerInParent="true"/>
+
+    <EditText
         android:id="@+id/etv_enter_plate"
+        android:layout_below="@id/etv_enter_car_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Enter your plate number"

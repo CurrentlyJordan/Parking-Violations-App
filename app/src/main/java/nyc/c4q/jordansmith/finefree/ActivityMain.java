@@ -1,6 +1,7 @@
 package nyc.c4q.jordansmith.finefree;
 
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -13,31 +14,53 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import nyc.c4q.jordansmith.finefree.model.Car;
+import nyc.c4q.jordansmith.finefree.sqlite.CarDatabaseHelper;
+import nyc.c4q.jordansmith.finefree.sqlite.SqlHelper;
+
 public class ActivityMain extends AppCompatActivity {
 
+    public static final String PLATE_KEY = "Car License";
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navDrawerView;
     private ActionBarDrawerToggle drawerToggle;
     SubMenu submenu;
 
-
+    private SQLiteDatabase db;
+    private List<Car> cars = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        CarDatabaseHelper helper = CarDatabaseHelper.getInstance(this);
+        db = helper.getWritableDatabase();
+        cars = SqlHelper.selectAllCars(db);
+
         setupToolbar();
         setupDrawerContent(navDrawerView);
         drawerToggle = setupDrawerToggle();
 
+        startDefaultHomeFragment();
+
+
+    }
+
+    private void startDefaultHomeFragment() {
+        FragmentHome fragmentHome = new FragmentHome();
+        Bundle bundle = new Bundle();
+        bundle.putString(PLATE_KEY, cars.get(0).getLicensePlate());
+        fragmentHome.setArguments(bundle);
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_holder, new FragmentHome())
+                .replace(R.id.fragment_holder, fragmentHome)
                 .commit();
-
-
-
     }
 
     @Override
@@ -46,7 +69,7 @@ public class ActivityMain extends AppCompatActivity {
         addCarstoNav();
     }
 
-    private void setupToolbar(){
+    private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -80,12 +103,9 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-//        Fragment fragment = null;
-//        Class fragmentClass;
-        switch(menuItem.getTitle().toString()) {
+        switch (menuItem.getTitle().toString()) {
             case "Home":
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_holder, new FragmentHome()).commit();
+                startDefaultHomeFragment();
                 break;
             case "Settings":
                 FragmentManager fragmentManager2 = getSupportFragmentManager();
@@ -93,15 +113,16 @@ public class ActivityMain extends AppCompatActivity {
                 break;
             case "Add new Car":
                 FragmentManager fragmentManager3 = getSupportFragmentManager();
-                fragmentManager3.beginTransaction().replace(R.id.fragment_holder, new FragmentNewCar()) .commit();
+                fragmentManager3.beginTransaction().replace(R.id.fragment_holder, new FragmentNewCar()).commit();
                 break;
         }
         String plate;
-        for (Car car : Car.getCarlist()){
-            if(car.getName().equals(menuItem.getTitle())){
-                plate = car.getLicensePlate();
+
+        for (int i = 0; i < cars.size(); i++) {
+            if (cars.get(i).getName().equals(menuItem.getTitle())) {
+                plate = cars.get(i).getLicensePlate();
                 Bundle bundle = new Bundle();
-                bundle.putString("Car License", plate);
+                bundle.putString(PLATE_KEY, plate);
                 FragmentManager fragmentManager3 = getSupportFragmentManager();
                 FragmentHome fragmentHome = new FragmentHome();
                 fragmentHome.setArguments(bundle);
@@ -109,22 +130,9 @@ public class ActivityMain extends AppCompatActivity {
                         .replace(R.id.fragment_holder, fragmentHome)
                         .commit();
 
-//                fragmentClass = FragmentHome.class;
-//                break;
             }
-//            else{
-////                fragmentClass = FragmentHome.class;
-//            }
         }
 
-
-//        try {
-//            fragment = (Fragment) fragmentClass.newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.fragment_holder, fragment).commit();
 
         menuItem.setChecked(true);
 
@@ -135,7 +143,7 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     @Override
@@ -150,29 +158,26 @@ public class ActivityMain extends AppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public void addCarstoNav(){
+    public void addCarstoNav() {
         final Menu menu = navDrawerView.getMenu();
-        if(submenu == null) {
+        if (submenu == null) {
             submenu = menu.addSubMenu("Your Cars");
-            for (Car car : Car.getCarlist()) {
-                submenu.add(car.getName()).setTitle(car.getName().toString())
+            for (int i = 0; i < cars.size(); i++) {
+                submenu.add(cars.get(i).getName()).setTitle(cars.get(i).getName().toString())
                         .setIcon(R.drawable.ic_car_black_36dp);
             }
-        }
-        else{
-            for (Car car: Car.getCarlist()) {
+        } else {
+            for (int i = 0; i < cars.size(); i++) {
                 submenu.clear();
-                submenu.add(car.getName()).setTitle(car.getName().toString())
+                submenu.add(cars.get(i).getName()).setTitle(cars.get(i).getName().toString())
                         .setIcon(R.drawable.ic_car_black_36dp);
 
 
-        }
+            }
 
 
         }
     }
-
-
 
 
 }
