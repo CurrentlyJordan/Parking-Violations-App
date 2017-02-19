@@ -29,7 +29,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     private TextView fineAmount;
     private TextView issueDate_tv;
     private Button payButton;
-    private boolean isAlreadyClicked = true;
+    private boolean isAlreadyClicked;
     private ImageView ticketImageView;
 
 
@@ -58,11 +58,13 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
 
                 if (isAlreadyClicked) {
                     ((ViewGroup) ticketImageView.getParent()).removeView(ticketImageView);
+                    isAlreadyClicked = false;
                 } else {
                     Glide.with(itemView.getContext())
                             .load(issueImage)
                             .into(ticketImageView);
                     ((ViewGroup) itemView).addView(ticketImageView);
+                    isAlreadyClicked = true;
 
                 }
             }
