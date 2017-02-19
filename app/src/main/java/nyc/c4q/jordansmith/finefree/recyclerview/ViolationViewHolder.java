@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,7 +35,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         summons_tv = (TextView) itemView.findViewById(R.id.summons_textview);
         issueDate_tv = (TextView) itemView.findViewById(R.id.issue_date_textview);
         fineAmount = (TextView) itemView.findViewById(R.id.fine_textview);
-        violation_tv = (TextView)itemView.findViewById(R.id.violation_textview);
+        violation_tv = (TextView) itemView.findViewById(R.id.violation_textview);
         payButton = (Button) itemView.findViewById(R.id.pay_button);
         setImageView();
 
@@ -73,10 +74,15 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ParkingCameraResponse violations) {
-        violation_tv.setText(violations.getViolation());
-        fineAmount.setText("Fine Amount: $" + Integer.toString(violations.getAmountDue()));
-        summons_tv.setText("Summons#: " + violations.getSummonsNumber());
-        issueDate_tv.setText("Issue Date: " + violations.getIssueDate());
+        String violation = "<b>" + violations.getViolation().toLowerCase() + "</b>";
+        String fine_amount = Integer.toString(violations.getAmountDue());
+        String summons = "<b>Summons#: </b>" + violations.getSummonsNumber();
+        String issueDate = "<b>Issue Date: </b>" + violations.getIssueDate();
+
+        violation_tv.setText(Html.fromHtml(violation));
+        issueDate_tv.setText(Html.fromHtml(issueDate));
+        summons_tv.setText(Html.fromHtml(summons));
+        fineAmount.setText(Html.fromHtml(fine_amount));
         payButton.setOnClickListener(payButtonClick(violations.getSummonsNumber()));
         cardClick(violations.getIssueImageURL());
     }
