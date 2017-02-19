@@ -26,7 +26,6 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     private TextView issueDate_tv;
     private TextView violation_tv;
     private Button payButton;
-    private boolean isAlreadyClicked;
     private ImageView ticketImageView;
 
 
