@@ -17,16 +17,19 @@ import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 public class SqlHelper {
     public static List<Car> selectAllCars(SQLiteDatabase db) {
-        List<Car> prisoners = new ArrayList<>();
+        List<Car> cars = new ArrayList<>();
         try {
             QueryResultIterable<Car> itr = cupboard().withDatabase(db).query(Car.class).query();
             for (Car car : itr) {
-                prisoners.add(car);
+                cars.add(car);
             }
             itr.close();
         } catch (Exception e) {
             Log.e("CellBlock", "selectAllCats: ", e);
         }
-        return prisoners;
+        return cars;
     }
+
+
+
 }
