@@ -60,6 +60,9 @@ public class FragmentHome extends Fragment {
                     @Override
                     public void onResponse(Call<List<ParkingCameraResponse>> call, Response<List<ParkingCameraResponse>> response) {
                         List<ParkingCameraResponse> violationsList = parseResponseForOutstandingViolations(response.body());
+                        if(response.body() == null){
+
+                        }
                         mViolationsAdapter.setViolationsList(violationsList);
                     }
 
@@ -73,6 +76,7 @@ public class FragmentHome extends Fragment {
 
     private List<ParkingCameraResponse> parseResponseForOutstandingViolations(List<ParkingCameraResponse> body) {
         List<ParkingCameraResponse> responseViolations = new ArrayList<>();
+
         for (int i = 0; i < body.size(); i++) {
             ParkingCameraResponse response = body.get(i);
             if(response.getAmountDue() != 0){
