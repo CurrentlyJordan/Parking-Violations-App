@@ -1,6 +1,5 @@
 package nyc.c4q.jordansmith.finefree;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,30 +20,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Context.MODE_PRIVATE;
-
 /**
  * Created by jordansmith on 2/18/17.
  */
 
 public class FragmentHome extends Fragment {
     private RecyclerView violationRV;
-    private SharedPreferences preferences;
     private ViolationsAdapter mViolationsAdapter = new ViolationsAdapter();
-    String licensePlate = "";
+    private String licensePlate;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment_layout, container, false);
-        preferences = getActivity().getSharedPreferences("nyc.c4q.jordansmith.finefree", MODE_PRIVATE);
-        licensePlate = preferences.getString("firstplate", "");
         violationRV = (RecyclerView) rootView.findViewById(R.id.violations_recyclerview);
 
 
         Bundle bundle = getArguments();
         if(bundle != null){
-            licensePlate = bundle.getString("Car License");
+            licensePlate = bundle.getString(ActivityMain.PLATE_KEY);
         }
 
         violationRV.setLayoutManager(new LinearLayoutManager(getContext()));
