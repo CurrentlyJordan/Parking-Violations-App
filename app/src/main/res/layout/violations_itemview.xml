@@ -30,13 +30,11 @@
             android:layout_marginLeft="5dp"
             android:orientation="vertical">
 
-
             <TextView
                 android:id="@+id/issue_date_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/rv_text_size" />
-
 
             <TextView
                 android:id="@+id/summons_textview"
