@@ -4,7 +4,6 @@ import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ import java.util.List;
 import nyc.c4q.jordansmith.finefree.model.Car;
 import nyc.c4q.jordansmith.finefree.sqlite.CarDatabaseHelper;
 import nyc.c4q.jordansmith.finefree.sqlite.SqlHelper;
+
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -75,8 +78,6 @@ public class ActivityMain extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navDrawerView = (NavigationView) findViewById(R.id.nvView);
         drawerLayout.addDrawerListener(drawerToggle);
-
-
     }
 
     @Override
@@ -102,31 +103,35 @@ public class ActivityMain extends AppCompatActivity {
                 });
     }
 
-    public void selectDrawerItem(MenuItem menuItem) {
+    public void selectDrawerItem(final MenuItem menuItem) {
         switch (menuItem.getTitle().toString()) {
             case "Home":
                 startDefaultHomeFragment();
                 break;
             case "Settings":
-                FragmentManager fragmentManager2 = getSupportFragmentManager();
-                fragmentManager2.beginTransaction().replace(R.id.fragment_holder, new FragmentSettings()).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_holder, new FragmentSettings())
+                        .commit();
                 break;
             case "Add new Car":
-                FragmentManager fragmentManager3 = getSupportFragmentManager();
-                fragmentManager3.beginTransaction().replace(R.id.fragment_holder, new FragmentNewCar()).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_holder, new FragmentNewCar())
+                        .commit();
                 break;
         }
-        String plate;
 
+        // Submenu of cars
+        String plate;
         for (int i = 0; i < cars.size(); i++) {
             if (cars.get(i).getName().equals(menuItem.getTitle())) {
                 plate = cars.get(i).getLicensePlate();
                 Bundle bundle = new Bundle();
                 bundle.putString(PLATE_KEY, plate);
-                FragmentManager fragmentManager3 = getSupportFragmentManager();
                 FragmentHome fragmentHome = new FragmentHome();
                 fragmentHome.setArguments(bundle);
-                fragmentManager3.beginTransaction()
+
+                getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
                         .replace(R.id.fragment_holder, fragmentHome)
                         .commit();
 
@@ -135,9 +140,7 @@ public class ActivityMain extends AppCompatActivity {
 
 
         menuItem.setChecked(true);
-
         setTitle(menuItem.getTitle());
-
 
         drawerLayout.closeDrawers();
     }
@@ -165,6 +168,23 @@ public class ActivityMain extends AppCompatActivity {
             for (int i = 0; i < cars.size(); i++) {
                 submenu.add(cars.get(i).getName()).setTitle(cars.get(i).getName().toString())
                         .setIcon(R.drawable.ic_car_black_36dp);
+
+                System.out.println(submenu.getItem(i).getItemId() + " " + submenu.getItem(i).getTitle());
+
+                final MenuItem item = submenu.getItem(i);
+                Button button = new Button(this);
+                button.setText("Remove");
+                item.setActionView(button);
+                item.getActionView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        System.out.println("CLICKED " + item.getTitle());
+                        cupboard().withDatabase(db).delete(Car.class, "name = ?", (String) item.getTitle());
+
+                        updateSubmenu();
+                    }
+                });
             }
         } else {
             for (int i = 0; i < cars.size(); i++) {
@@ -172,12 +192,39 @@ public class ActivityMain extends AppCompatActivity {
                 submenu.add(cars.get(i).getName()).setTitle(cars.get(i).getName().toString())
                         .setIcon(R.drawable.ic_car_black_36dp);
 
-
             }
-
 
         }
     }
 
+    private void updateSubmenu() {
+        cars = SqlHelper.selectAllCars(db);
+        System.out.println("SIZE AFTER REMOVE " + cars.size());
 
+        submenu.clear();
+
+        for (int i = 0; i < cars.size(); i++) {
+            submenu.add(cars.get(i).getName()).setTitle(cars.get(i).getName().toString())
+                    .setIcon(R.drawable.ic_car_black_36dp);
+
+            final MenuItem item = submenu.getItem(i);
+            Button button = new Button(this);
+            button.setText("Remove");
+            item.setActionView(button);
+            item.getActionView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    System.out.println("CLICKED " + item.getTitle());
+                    cupboard().withDatabase(db).delete(Car.class, "name = ?", (String) item.getTitle());
+
+                    updateSubmenu();
+                }
+            });
+        }
+
+
+
+
+    }
 }
