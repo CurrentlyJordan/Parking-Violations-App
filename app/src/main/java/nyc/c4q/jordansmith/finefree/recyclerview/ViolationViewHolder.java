@@ -72,7 +72,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ParkingCameraResponse violations) {
-        fineAmount.setText("Fine Amount: " + Integer.toString(violations.getAmountDue()));
+        fineAmount.setText("Fine Amount: $" + Integer.toString(violations.getAmountDue()));
         summons_tv.setText("Summons#: " + violations.getSummonsNumber());
         issueDate_tv.setText("Issue Date: " + violations.getIssueDate());
         payButton.setOnClickListener(payButtonClick(violations.getSummonsNumber()));

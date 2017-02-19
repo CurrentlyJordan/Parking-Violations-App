@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/name_textview"
-        android:textSize="40dp"
-        android:gravity="center"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor= "@color/colorAccent"
-        android:text="Toyota"/>
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Toyota"
+        android:textColor="@color/colorAccent"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/license_textview"
-        android:textSize="40dp"
-        android:gravity="center"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor= "@color/colorAccent"
-        android:text = "License"
-        />
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="License"
+        android:textColor="@color/colorAccent"
+        android:textSize="40dp"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/violations_recyclerview"
@@ -30,5 +32,15 @@
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+
+
+    <TextView
+        android:id="@+id/replace_rv_when_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_violations"
+        android:textSize="@dimen/empty_rv_text"
+        android:visibility="invisible" />
 
 </LinearLayout>

@@ -32,6 +32,8 @@ public class FragmentHome extends Fragment {
     private String licensePlate;
     private TextView nameOfCar;
     private TextView plateOfCar;
+    private TextView ifRVIsEmpty;
+
 
     @Nullable
     @Override
@@ -40,7 +42,7 @@ public class FragmentHome extends Fragment {
         violationRV = (RecyclerView) rootView.findViewById(R.id.violations_recyclerview);
         nameOfCar = (TextView) rootView.findViewById(R.id.name_textview);
         plateOfCar = (TextView) rootView.findViewById(R.id.license_textview);
-
+        ifRVIsEmpty = (TextView) rootView.findViewById(R.id.replace_rv_when_empty);
 
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -69,6 +71,10 @@ public class FragmentHome extends Fragment {
                     @Override
                     public void onResponse(Call<List<ParkingCameraResponse>> call, Response<List<ParkingCameraResponse>> response) {
                         List<ParkingCameraResponse> violationsList = parseResponseForOutstandingViolations(response.body());
+                        if(violationsList.isEmpty()){
+                            violationRV.setVisibility(View.GONE);
+                            ifRVIsEmpty.setVisibility(View.VISIBLE);
+                        }
                         mViolationsAdapter.setViolationsList(violationsList);
                     }
 
