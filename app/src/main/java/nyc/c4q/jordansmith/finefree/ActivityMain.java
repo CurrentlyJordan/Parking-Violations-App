@@ -205,7 +205,24 @@ public class ActivityMain extends AppCompatActivity {
                 submenu.add(cars.get(i).getName()).setTitle(cars.get(i).getName().toString())
                         .setIcon(R.drawable.ic_car_black_36dp);
 
+                final MenuItem item = submenu.getItem(i);
+                Button button = new Button(this);
+                button.setText("Remove");
+                item.setActionView(button);
+                item.getActionView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        System.out.println("CLICKED " + item.getTitle());
+                        cupboard().withDatabase(db).delete(Car.class, "name = ?", (String) item.getTitle());
+
+                        updateSubmenu();
+                    }
+                });
+
             }
+
+
 
         }
     }
@@ -236,8 +253,10 @@ public class ActivityMain extends AppCompatActivity {
             });
         }
 
+    }
 
-
-
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }
