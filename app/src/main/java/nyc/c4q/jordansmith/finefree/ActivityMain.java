@@ -187,7 +187,9 @@ public class ActivityMain extends AppCompatActivity {
                 final MenuItem item = submenu.getItem(i);
                 Button button = new Button(this);
                 button.setText("Remove");
+                button.setTextColor(getResources().getColor(R.color.white));
                 item.setActionView(button);
+                item.getActionView().setBackground(getDrawable(R.drawable.button_shape));
                 item.getActionView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -223,7 +225,9 @@ public class ActivityMain extends AppCompatActivity {
             final MenuItem item = submenu.getItem(i);
             Button button = new Button(this);
             button.setText("Remove");
+            button.setTextColor(getResources().getColor(R.color.white));
             item.setActionView(button);
+            item.getActionView().setBackground(getDrawable(R.drawable.button_shape));
             item.getActionView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
