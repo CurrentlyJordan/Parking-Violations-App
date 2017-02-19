@@ -13,9 +13,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <EditText
+        android:id="@+id/new_car_name_edit_text"
+        android:layout_marginTop="20dp"
+        android:hint="Type in name of car"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/new_car_licence_edit_text"
         android:layout_marginTop="20dp"
         android:hint="Type in license plate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/submit_button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="submit"/>
 
 </LinearLayout>
