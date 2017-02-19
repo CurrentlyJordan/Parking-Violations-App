@@ -27,6 +27,8 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     private TextView issueDate_tv;
     private TextView violation_tv;
     private Button payButton;
+    private Button calendarButton;
+    private Button viewTicket;
     private ImageView ticketImageView;
 
 
@@ -37,6 +39,8 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         fineAmount = (TextView) itemView.findViewById(R.id.fine_textview);
         violation_tv = (TextView) itemView.findViewById(R.id.violation_textview);
         payButton = (Button) itemView.findViewById(R.id.pay_button);
+        calendarButton = (Button) itemView.findViewById(R.id.calendar_button);
+        viewTicket =(Button) itemView.findViewById(R.id.violation_view_button);
         setImageView();
 
     }
@@ -74,7 +78,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ParkingCameraResponse violations) {
-        String violation = "<b>" + violations.getViolation().toLowerCase() + "</b>";
+        String violation = "<b>" + violations.getViolation() + "</b>";
         String fine_amount = "<b>Amount Due: </b>" + Integer.toString(violations.getAmountDue());
         String summons = "<b>Summons#: </b>" + violations.getSummonsNumber();
         String issueDate = "<b>Issue Date: </b>" + violations.getIssueDate();
