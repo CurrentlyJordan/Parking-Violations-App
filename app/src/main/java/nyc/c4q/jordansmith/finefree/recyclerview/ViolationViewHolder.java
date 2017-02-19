@@ -2,7 +2,7 @@ package nyc.c4q.jordansmith.finefree.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TextView;
 
 import nyc.c4q.jordansmith.finefree.R;
@@ -15,7 +15,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     private TextView summons_tv;
     private TextView fineAmount;
     private TextView issueDate_tv;
-    private ImageButton payButton;
+    private Button payButton;
     private String violationURL;
 
 
@@ -24,7 +24,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         summons_tv = (TextView) itemView.findViewById(R.id.summons_textview);
         issueDate_tv = (TextView) itemView.findViewById(R.id.issue_date_textview);
         fineAmount = (TextView) itemView.findViewById(R.id.fine_textview);
-        payButton = (ImageButton) itemView.findViewById(R.id.pay_button);
+        payButton = (Button) itemView.findViewById(R.id.pay_button);
         payButtonClick();
         cardClick(itemView);
     }
@@ -48,9 +48,9 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ParkingCameraResponse violations) {
-        fineAmount.setText(Integer.toString(violations.getAmountDue()));
-        summons_tv.setText(violations.getSummonsNumber());
-        issueDate_tv.setText(violations.getIssueDate());
+        fineAmount.setText("Fine Amount: " + Integer.toString(violations.getAmountDue()));
+        summons_tv.setText("Summons#: " + violations.getSummonsNumber());
+        issueDate_tv.setText("Issue Date: " + violations.getIssueDate());
         violationURL = violations.getIssueImage();
     }
 }
