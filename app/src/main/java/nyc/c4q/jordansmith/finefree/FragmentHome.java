@@ -1,5 +1,6 @@
 package nyc.c4q.jordansmith.finefree;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,8 @@ import retrofit2.Response;
 
 public class FragmentHome extends Fragment {
     private RecyclerView violationRV;
+    private SharedPreferences preferences;
+    List<ParkingCameraResponse> violationsList = new ArrayList<>();
     private ViolationsAdapter mViolationsAdapter = new ViolationsAdapter();
     String licensePlate = "GXE1257";
 
@@ -34,6 +37,13 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment_layout, container, false);
         violationRV = (RecyclerView) rootView.findViewById(R.id.violations_recyclerview);
+
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            licensePlate = bundle.getString("Car License");
+        }
+
         violationRV.setLayoutManager(new LinearLayoutManager(getContext()));
         violationRV.setAdapter(mViolationsAdapter);
         return rootView;
@@ -48,7 +58,7 @@ public class FragmentHome extends Fragment {
     private void fetchViolations() {
         ParkingCameraViolationsClient
                 .getInstance()
-                .getResponseByPlate(licensePlate)
+                .getResponseByPlate(licensePlate.toUpperCase())
                 .enqueue(new Callback<List<ParkingCameraResponse>>() {
                     @Override
                     public void onResponse(Call<List<ParkingCameraResponse>> call, Response<List<ParkingCameraResponse>> response) {
