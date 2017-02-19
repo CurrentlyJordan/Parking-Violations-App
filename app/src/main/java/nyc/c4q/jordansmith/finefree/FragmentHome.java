@@ -1,5 +1,6 @@
 package nyc.c4q.jordansmith.finefree;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by jordansmith on 2/18/17.
  */
@@ -27,7 +30,9 @@ import retrofit2.Response;
 public class FragmentHome extends Fragment {
     private RecyclerView violationRV;
     private ViolationsAdapter mViolationsAdapter = new ViolationsAdapter();
-    String licensePlate = "GXE1257";
+    //String licensePlate = "GXE1257";
+    private String licensePlate;
+    private SharedPreferences prefs;
 
     @Nullable
     @Override
@@ -42,6 +47,8 @@ public class FragmentHome extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        prefs = getContext().getSharedPreferences("nyc.c4q.jordansmith.finefree", MODE_PRIVATE);
+        licensePlate = prefs.getString("firstplate", null);
         fetchViolations();
     }
 
