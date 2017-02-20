@@ -8,12 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import nyc.c4q.jordansmith.finefree.model.Car;
 import nyc.c4q.jordansmith.finefree.model.ParkingCameraResponse;
 import nyc.c4q.jordansmith.finefree.network.parking_camera_violations.ParkingCameraViolationsClient;
@@ -27,6 +30,7 @@ import retrofit2.Response;
  */
 
 public class FragmentHome extends Fragment {
+    private static final int THREE_SECONDS = 3000;
     private RecyclerView violationRV;
     private ViolationsAdapter mViolationsAdapter = new ViolationsAdapter();
     private String licensePlate;
@@ -54,7 +58,11 @@ public class FragmentHome extends Fragment {
         }
 
         violationRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        violationRV.setAdapter(mViolationsAdapter);
+
+        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(mViolationsAdapter);
+        alphaAdapter.setDuration(THREE_SECONDS);
+        alphaAdapter.setInterpolator(new OvershootInterpolator());
+        violationRV.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
         return rootView;
     }
 

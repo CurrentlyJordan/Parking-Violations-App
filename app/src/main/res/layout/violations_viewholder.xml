@@ -65,7 +65,7 @@
                 android:id="@+id/pay_button"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:layout_gravity="right|center"
+                android:layout_gravity="center"
                 android:background="@drawable/round_button"
                 android:text="@string/pay"
                 android:textColor="@color/white" />
