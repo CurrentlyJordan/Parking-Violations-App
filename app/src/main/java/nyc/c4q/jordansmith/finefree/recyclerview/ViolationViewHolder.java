@@ -9,15 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
-import java.util.Date;
 
 import nyc.c4q.jordansmith.finefree.R;
 import nyc.c4q.jordansmith.finefree.model.ParkingCameraResponse;
@@ -88,7 +86,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ParkingCameraResponse violations) {
-        String violation = "<b>" + violations.getViolation() + "</b>";
+        String violation = violations.getViolation();
         String fine_amount = "<b>Amount Due: $</b>" + Integer.toString(violations.getAmountDue());
         String summons = "<b>Summons#: </b>" + violations.getSummonsNumber();
         String issueDate = "<b>Issue Date: </b>" + violations.getIssueDate();
