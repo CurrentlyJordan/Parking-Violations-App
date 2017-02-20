@@ -13,6 +13,12 @@ import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.Date;
+
 import nyc.c4q.jordansmith.finefree.R;
 import nyc.c4q.jordansmith.finefree.model.ParkingCameraResponse;
 
@@ -22,6 +28,7 @@ import static android.content.Context.CLIPBOARD_SERVICE;
  * Created by helenchan on 2/18/17.
  */
 public class ViolationViewHolder extends RecyclerView.ViewHolder {
+    private final int NUMBER_OF_DAYS_UNTIL_TICKETS_IS_DUE = 30;
     private final String PAYMENT_URL = "https://secure24.ipayment.com/NYCPayments/nycbookmark_1.htm";
     private TextView summons_tv;
     private TextView fineAmount;
@@ -32,6 +39,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
     private Button calendarButton;
     private Button viewTicket;
     private ImageView ticketImageView;
+    private String dueDate;
 
 
     public ViolationViewHolder(View itemView) {
@@ -84,14 +92,25 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
         String fine_amount = "<b>Amount Due: $</b>" + Integer.toString(violations.getAmountDue());
         String summons = "<b>Summons#: </b>" + violations.getSummonsNumber();
         String issueDate = "<b>Issue Date: </b>" + violations.getIssueDate();
+        String dueDate = "<b>Due date: </b>" + getDueDate(violations);
 
         violation_tv.setText(Html.fromHtml(violation));
         issueDate_tv.setText(Html.fromHtml(issueDate));
         summons_tv.setText(Html.fromHtml(summons));
         fineAmount.setText(Html.fromHtml(fine_amount));
+        dueDate_tv.setText(Html.fromHtml(dueDate));
         payButton.setOnClickListener(payButtonClick(violations.getSummonsNumber()));
         viewTicket.setOnClickListener(viewTicketClick(violations.getIssueImageURL()));
         calendarButton.setOnClickListener(calendarButtonClick(violations.getViolation()));
+    }
+
+    private String getDueDate(ParkingCameraResponse violations) {
+        System.out.println(violations.getIssueDate());
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+        DateTime dateTime = DateTime.parse(violations.getIssueDate(), formatter).toDateTime();
+        dateTime = dateTime.plusDays(NUMBER_OF_DAYS_UNTIL_TICKETS_IS_DUE);
+        dueDate = formatter.print(dateTime);
+        return dueDate;
     }
 
     private View.OnClickListener calendarButtonClick(final String violation) {
@@ -100,7 +119,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 Intent calIntent = new Intent(Intent.ACTION_INSERT);
                 calIntent.putExtra(CalendarContract.Events.TITLE, "PAY TICKET");
-                calIntent.putExtra(CalendarContract.Events.DESCRIPTION, violation);
+                calIntent.putExtra(CalendarContract.Events.DESCRIPTION, violation + ", DUE: " + dueDate);
                 calIntent.setData(CalendarContract.Events.CONTENT_URI);
                 itemView.getContext().startActivity(calIntent);
             }
