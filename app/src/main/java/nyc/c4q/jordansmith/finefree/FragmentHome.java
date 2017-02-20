@@ -30,6 +30,7 @@ public class FragmentHome extends Fragment {
     private RecyclerView violationRV;
     private ViolationsAdapter mViolationsAdapter = new ViolationsAdapter();
     private String licensePlate;
+    private String carName;
     private TextView nameOfCar;
     private TextView plateOfCar;
     private TextView onlyShownIfNoDataTV;
@@ -48,8 +49,8 @@ public class FragmentHome extends Fragment {
         if(bundle != null){
             Car car = (Car) bundle.getSerializable(ActivityMain.PLATE_KEY);
             licensePlate = car.getLicensePlate();
-            plateOfCar.setText(licensePlate);
-            nameOfCar.setText(car.getName());
+            plateOfCar.setText("Plate #: " + licensePlate);
+            carName = car.getName();
         }
 
         violationRV.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -73,8 +74,11 @@ public class FragmentHome extends Fragment {
                         List<ParkingCameraResponse> violationsList = parseResponseForOutstandingViolations(response.body());
                         if(violationsList.isEmpty()){
                             violationRV.setVisibility(View.GONE);
+                            nameOfCar.setVisibility(View.GONE);
                             onlyShownIfNoDataTV.setVisibility(View.VISIBLE);
                         }
+                        String violationSize = (String.valueOf(violationsList.size()));
+                        nameOfCar.setText(violationSize + " outstanding violations for " + carName);
                         mViolationsAdapter.setViolationsList(violationsList);
                     }
 
