@@ -118,7 +118,7 @@ public class ViolationViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 Intent calIntent = new Intent(Intent.ACTION_INSERT);
-                calIntent.putExtra(CalendarContract.Events.TITLE, "PAY TICKET");
+                calIntent.putExtra(CalendarContract.Events.TITLE, "PAY TICKET" + ", DUE: " + dueDate);
                 calIntent.putExtra(CalendarContract.Events.DESCRIPTION, violation + ", DUE: " + dueDate);
                 calIntent.setData(CalendarContract.Events.CONTENT_URI);
                 itemView.getContext().startActivity(calIntent);
