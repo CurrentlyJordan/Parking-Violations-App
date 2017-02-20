@@ -34,6 +34,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'net.danlew:android.joda:2.9.5.1'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.5'
     // Sqlite
     compile 'nl.qbusict:cupboard:2.2.0'
     compile 'com.facebook.fresco:stetho:1.1.0'
