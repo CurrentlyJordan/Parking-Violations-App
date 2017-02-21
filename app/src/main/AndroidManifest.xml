@@ -11,6 +11,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name=".network.new_york_311.MyAlarmReciever"
+            android:process=":remote" >
+        </receiver>
+        <service
+            android:name=".network.new_york_311.AlternateSideParkingNotifierService"
+            android:exported="false"/>
         <activity android:name=".ActivityMain"></activity>
         <activity
             android:name=".ActivitySplash"

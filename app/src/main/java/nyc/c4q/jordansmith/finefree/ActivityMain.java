@@ -1,7 +1,10 @@
 package nyc.c4q.jordansmith.finefree;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nyc.c4q.jordansmith.finefree.model.Car;
+import nyc.c4q.jordansmith.finefree.network.new_york_311.AlternateSideParkingNotifierService;
 import nyc.c4q.jordansmith.finefree.sqlite.CarDatabaseHelper;
 import nyc.c4q.jordansmith.finefree.sqlite.SqlHelper;
 
@@ -35,6 +39,7 @@ public class ActivityMain extends AppCompatActivity {
     private NavigationView navDrawerView;
     private ActionBarDrawerToggle drawerToggle;
     SubMenu submenu;
+    public static final String SWITCH_KEY = "switch key";
 
     private SQLiteDatabase db;
     private List<Car> cars = new ArrayList<>();
@@ -55,6 +60,10 @@ public class ActivityMain extends AppCompatActivity {
         startDefaultHomeFragment();
 
         addCarstoNav();
+
+        if(getSwitchState()){
+            launchTestService();
+        }
 
     }
 
@@ -318,4 +327,16 @@ public class ActivityMain extends AppCompatActivity {
     public void onBackPressed() {
         finishAffinity();
     }
+
+    public void launchTestService() {
+        Intent i = new Intent(this, AlternateSideParkingNotifierService.class);
+        startService(i);
+    }
+
+    public boolean getSwitchState(){
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        return sharedPref.getBoolean(SWITCH_KEY, true);
+
+    }
+
 }
