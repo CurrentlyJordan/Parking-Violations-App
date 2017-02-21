@@ -4,5 +4,6 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="pay">Pay</string>
     <string name="no_violations">Yay! No violations found!</string>
+    <string name="alternate_side_switch_option">Remind me if Alternate Side of the street parking is in effect.</string>
 
 </resources>
